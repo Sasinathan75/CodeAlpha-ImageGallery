@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vistora - Image Gallery</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>Vistora</span>
+        </div>
+
+        <p class="tagline">A collection of beautiful moments</p>
+
+        <div class="header-controls">
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search images..."
+                    aria-label="Search images">
+
+                <button
+                    id="clearSearch"
+                    class="clear-search"
+                    aria-label="Clear search"
+                    title="Clear search">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <!-- FAVORITES -->
+
+            <button
+                class="header-action"
+                id="favoritesToggle"
+                aria-label="Show favorite images"
+                title="Favorites">
+
+                <span>♡</span>
+
+                <span class="favorites-label">
+                    Favorites
+                </span>
+
+                <span id="favoritesCount">
+                    0
+                </span>
+
+            </button>
+
+
+            <!-- THEME -->
+
+            <button
+                class="header-action theme-toggle"
+                id="themeToggle"
+                aria-label="Toggle theme"
+                title="Toggle light and dark theme">
+
+                <span id="themeIcon">
+                    ☀
+                </span>
+
+            </button>
+
+
+            <!-- KEYBOARD SHORTCUTS -->
+
+            <button
+                class="header-action keyboard-toggle"
+                id="keyboardHelpBtn"
+                aria-label="Keyboard shortcuts"
+                title="Keyboard shortcuts">
+
+                ⌨
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="hero-label">
+                VISUAL STORIES
+            </p>
+
+            <h1>
+                Explore the
+                <span>Beautiful World</span>
+            </h1>
+
+            <p class="hero-description">
+                Discover stunning moments captured across nature,
+                architecture, wildlife and travel.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= GALLERY ================= -->
+
+    <section class="gallery-section">
+
+        <!-- SECTION HEADING -->
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="small-title">
+                    OUR COLLECTION
+                </p>
+
+                <h2>
+                    Explore Gallery
+                </h2>
+
+            </div>
+
+
+            <div class="gallery-heading-right">
+
+                <div class="gallery-stats">
+
+                    <p class="image-count">
+
+                        <span id="imageCount">
+                            12
+                        </span>
+
+                        Images
+
+                    </p>
+
+
+                    <p class="favorite-count-display">
+
+                        <span id="favoriteCountDisplay">
+                            0
+                        </span>
+
+                        Favorites
+
+                    </p>
+
+                </div>
+
+
+                <div class="gallery-tools">
+
+                    <!-- SORT -->
+
+                    <div class="sort-control">
+
+                        <label for="sortSelect">
+                            Sort
+                        </label>
+
+                        <select id="sortSelect">
+
+                            <option value="default">
+                                Default
+                            </option>
+
+                            <option value="newest">
+                                Newest
+                            </option>
+
+                            <option value="oldest">
+                                Oldest
+                            </option>
+
+                            <option value="az">
+                                A → Z
+                            </option>
+
+                            <option value="za">
+                                Z → A
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ADD IMAGE -->
+
+                    <button
+                        id="openAddImage"
+                        class="add-image-btn"
+                        type="button"
+                        title="Add your own image"
+                        aria-label="Add your own image">
+
+                        <span class="add-image-icon">
+                            +
+                        </span>
+
+                        <span>
+                            Add Image
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH STATUS -->
+
+        <div
+            class="search-status"
+            id="searchStatus"
+            aria-live="polite">
+
+            <span id="searchResultText"></span>
+
+        </div>
+
+
+        <!-- FILTER + VIEW CONTROLS -->
+
+        <div class="filter-toolbar">
+
+            <div class="filters">
+
+                <button
+                    class="filter-btn active"
+                    data-filter="all">
+
+                    All
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="nature">
+
+                    Nature
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="architecture">
+
+                    Architecture
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="wildlife">
+
+                    Wildlife
+
+                </button>
+
+
+                <button
+                    class="filter-btn"
+                    data-filter="travel">
+
+                    Travel
+
+                </button>
+
+
+                <button
+                    class="filter-btn favorites-filter-btn"
+                    data-filter="favorites">
+
+                    ♡ Favorites
+
+                </button>
+
+            </div>
+
+
+            <!-- VIEW MODE -->
+
+            <div class="gallery-view-controls">
+
+                <button
+                    id="gridViewBtn"
+                    class="view-mode-btn active"
+                    type="button"
+                    title="Grid view"
+                    aria-label="Grid view">
+
+                    ▦
+
+                </button>
+
+
+                <button
+                    id="masonryViewBtn"
+                    class="view-mode-btn"
+                    type="button"
+                    title="Masonry view"
+                    aria-label="Masonry view">
+
+                    ▤
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= IMAGE GRID ================= -->
+
+        <div
+            class="gallery-grid"
+            id="galleryGrid">
+
+
+            <!-- IMAGE 1 -->
+
+            <div
+                class="gallery-item large"
+                data-category="nature"
+                data-index="0">
+
+                <img
+                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=80"
+                    alt="Mountain landscape"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="0"
+                    aria-label="Add Mountain Escape to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="0"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Nature
+                        </span>
+
+                        <h3>
+                            Mountain Escape
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 2 -->
+
+            <div
+                class="gallery-item"
+                data-category="architecture"
+                data-index="1">
+
+                <img
+                    src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80"
+                    alt="Modern architecture"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="1"
+                    aria-label="Add Modern Lines to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="1"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Architecture
+                        </span>
+
+                        <h3>
+                            Modern Lines
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 3 -->
+
+            <div
+                class="gallery-item"
+                data-category="wildlife"
+                data-index="2">
+
+                <img
+                    src="https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=900&q=80"
+                    alt="Wild elephant"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="2"
+                    aria-label="Add Into the Wild to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="2"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Wildlife
+                        </span>
+
+                        <h3>
+                            Into the Wild
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 4 -->
+
+            <div
+                class="gallery-item"
+                data-category="travel"
+                data-index="3">
+
+                <img
+                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80"
+                    alt="Tropical beach"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="3"
+                    aria-label="Add Ocean Breeze to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="3"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Travel
+                        </span>
+
+                        <h3>
+                            Ocean Breeze
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 5 -->
+
+            <div
+                class="gallery-item"
+                data-category="nature"
+                data-index="4">
+
+                <img
+                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80"
+                    alt="Forest"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="4"
+                    aria-label="Add Forest Dreams to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="4"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Nature
+                        </span>
+
+                        <h3>
+                            Forest Dreams
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 6 -->
+
+            <div
+                class="gallery-item"
+                data-category="architecture"
+                data-index="5">
+
+                <img
+                    src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80"
+                    alt="Building architecture"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="5"
+                    aria-label="Add Urban Geometry to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="5"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Architecture
+                        </span>
+
+                        <h3>
+                            Urban Geometry
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 7 -->
+
+            <div
+                class="gallery-item large"
+                data-category="travel"
+                data-index="6">
+
+                <img
+                    src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80"
+                    alt="Beautiful valley"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="6"
+                    aria-label="Add Into the Valley to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="6"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Travel
+                        </span>
+
+                        <h3>
+                            Into the Valley
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 8 -->
+
+            <div
+                class="gallery-item"
+                data-category="wildlife"
+                data-index="7">
+
+                <img
+                    src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80"
+                    alt="Wild animal"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="7"
+                    aria-label="Add Wild Spirit to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="7"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Wildlife
+                        </span>
+
+                        <h3>
+                            Wild Spirit
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 9 -->
+
+            <div
+                class="gallery-item"
+                data-category="nature"
+                data-index="8">
+
+                <img
+                    src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80"
+                    alt="Snow mountain"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="8"
+                    aria-label="Add Frozen Peaks to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="8"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Nature
+                        </span>
+
+                        <h3>
+                            Frozen Peaks
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 10 -->
+
+            <div
+                class="gallery-item"
+                data-category="architecture"
+                data-index="9">
+
+                <img
+                    src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80"
+                    alt="Interior architecture"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="9"
+                    aria-label="Add Creative Spaces to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="9"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Architecture
+                        </span>
+
+                        <h3>
+                            Creative Spaces
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 11 -->
+
+            <div
+                class="gallery-item"
+                data-category="travel"
+                data-index="10">
+
+                <img
+                    src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=900&q=80"
+                    alt="Lake and mountains"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="10"
+                    aria-label="Add Peaceful Journey to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="10"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Travel
+                        </span>
+
+                        <h3>
+                            Peaceful Journey
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE 12 -->
+
+            <div
+                class="gallery-item"
+                data-category="wildlife"
+                data-index="11">
+
+                <img
+                    src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=900&q=80"
+                    alt="Wild animal"
+                    loading="lazy">
+
+                <button
+                    class="favorite-btn"
+                    data-index="11"
+                    aria-label="Add Nature's Beauty to favorites"
+                    title="Add to favorites">
+
+                    ♡
+
+                </button>
+
+                <button
+                    class="delete-image-btn"
+                    data-index="11"
+                    type="button"
+                    aria-label="Delete image"
+                    title="Delete image">
+
+                    🗑
+
+                </button>
+
+                <div class="image-overlay">
+
+                    <div>
+
+                        <span>
+                            Wildlife
+                        </span>
+
+                        <h3>
+                            Nature's Beauty
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        aria-label="View image">
+
+                        ↗
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- NO SEARCH RESULTS -->
+
+            <div
+                class="no-results"
+                id="noResults"
+                hidden>
+
+                <div class="no-results-icon">
+                    ⌕
+                </div>
+
+                <h3>
+                    No images found
+                </h3>
+
+                <p>
+                    Try a different search term or category.
+                </p>
+
+                <button
+                    id="resetGallery"
+                    class="reset-btn"
+                    type="button">
+
+                    Reset Gallery
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ADD IMAGE MODAL ================= -->
+
+    <div
+        class="add-image-modal"
+        id="addImageModal"
+        aria-hidden="true">
+
+        <div
+            class="add-image-modal-overlay"
+            id="addImageBackdrop">
+        </div>
+
+
+        <div
+            class="add-image-modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="addImageModalTitle">
+
+
+            <!-- HEADER -->
+
+            <div class="add-image-modal-header">
+
+                <div>
+
+                    <p class="small-title">
+                        PERSONAL COLLECTION
+                    </p>
+
+                    <h2 id="addImageModalTitle">
+                        Add Your Image
+                    </h2>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="closeAddImage"
+                    class="add-image-close"
+                    aria-label="Close add image window">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <!-- DRAG AND DROP -->
+
+            <div
+                class="image-upload-area"
+                id="uploadArea">
+
+                <input
+                    type="file"
+                    id="imageFileInput"
+                    accept="image/jpeg,image/png,image/webp"
+                    hidden>
+
+
+                <div
+                    class="upload-box"
+                    id="uploadBox">
+
+                    <div class="upload-icon">
+                        ↑
+                    </div>
+
+                    <h3>
+                        Drag & Drop your image
+                    </h3>
+
+                    <p>
+                        or choose an image from your device
+                    </p>
+
+                    <span>
+                        JPG, PNG or WEBP • Maximum 1.5 MB
+                    </span>
+
+                    <button
+                        type="button"
+                        id="chooseImageBtn"
+                        class="choose-image-btn">
+
+                        Choose Image
+
+                    </button>
+
+                </div>
+
+
+                <!-- IMAGE PREVIEW -->
+
+                <div
+                    class="image-preview-container"
+                    id="imagePreviewContainer"
+                    hidden>
+
+                    <img
+                        id="imagePreview"
+                        src=""
+                        alt="Selected image preview">
+
+                    <button
+                        type="button"
+                        id="removeImagePreview"
+                        class="remove-preview-btn"
+                        title="Remove selected image"
+                        aria-label="Remove selected image">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGE DETAILS -->
+
+            <div class="add-image-fields">
+
+                <div class="form-group">
+
+                    <label for="imageTitleInput">
+                        Image Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="imageTitleInput"
+                        placeholder="Example: My Sunset"
+                        maxlength="60">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="imageCategoryInput">
+                        Category
+                    </label>
+
+                    <select id="imageCategoryInput">
+
+                        <option value="Nature">
+                            Nature
+                        </option>
+
+                        <option value="Architecture">
+                            Architecture
+                        </option>
+
+                        <option value="Wildlife">
+                            Wildlife
+                        </option>
+
+                        <option value="Travel">
+                            Travel
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="add-image-actions">
+
+                <button
+                    type="button"
+                    id="cancelAddImage"
+                    class="cancel-add-btn">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="confirmAddImage"
+                    class="confirm-add-btn">
+
+                    <span>
+                        +
+                    </span>
+
+                    Add to Gallery
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= EDIT IMAGE MODAL ================= -->
+
+    <div
+        class="edit-image-modal"
+        id="editImageModal"
+        aria-hidden="true">
+
+        <div
+            class="edit-image-modal-overlay"
+            id="editImageBackdrop">
+        </div>
+
+
+        <div
+            class="edit-image-modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="editImageModalTitle">
+
+
+            <!-- HEADER -->
+
+            <div class="edit-image-modal-header">
+
+                <div>
+
+                    <p class="small-title">
+                        IMAGE SETTINGS
+                    </p>
+
+                    <h2 id="editImageModalTitle">
+                        Edit Image
+                    </h2>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="closeEditImage"
+                    class="edit-image-close"
+                    aria-label="Close edit image window">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <!-- PREVIEW -->
+
+            <div class="edit-image-preview">
+
+                <img
+                    id="editImagePreview"
+                    src=""
+                    alt="Image preview">
+
+            </div>
+
+
+            <!-- FIELDS -->
+
+            <div class="edit-image-fields">
+
+                <div class="form-group">
+
+                    <label for="editImageTitleInput">
+                        Image Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editImageTitleInput"
+                        maxlength="60">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editImageCategoryInput">
+                        Category
+                    </label>
+
+                    <select id="editImageCategoryInput">
+
+                        <option value="Nature">
+                            Nature
+                        </option>
+
+                        <option value="Architecture">
+                            Architecture
+                        </option>
+
+                        <option value="Wildlife">
+                            Wildlife
+                        </option>
+
+                        <option value="Travel">
+                            Travel
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="edit-image-actions">
+
+                <button
+                    type="button"
+                    id="cancelEditImage"
+                    class="cancel-add-btn">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="saveEditImage"
+                    class="confirm-add-btn">
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= LIGHTBOX ================= -->
+
+    <div
+        class="lightbox"
+        id="lightbox"
+        aria-hidden="true">
+
+
+        <!-- CLOSE -->
+
+        <button
+            class="close-btn"
+            id="closeLightbox"
+            aria-label="Close image viewer">
+
+            ×
+
+        </button>
+
+
+        <!-- PREVIOUS -->
+
+        <button
+            class="lightbox-nav prev"
+            id="prevBtn"
+            aria-label="Previous image">
+
+            ‹
+
+        </button>
+
+
+        <div class="lightbox-content">
+
+            <img
+                id="lightboxImage"
+                src=""
+                alt="">
+
+
+            <div class="lightbox-info">
+
+                <span id="lightboxCategory">
+                    Nature
+                </span>
+
+
+                <h2 id="lightboxTitle">
+                    Mountain Escape
+                </h2>
+
+
+                <p>
+
+                    <span id="currentImage">
+                        1
+                    </span>
+
+                    /
+
+                    <span id="totalImages">
+                        12
+                    </span>
+
+                </p>
+
+
+                <!-- IMAGE DETAILS -->
+
+                <div
+                    class="image-details"
+                    id="imageDetails">
+
+                    <div class="detail-item">
+
+                        <span>
+                            Dimensions
+                        </span>
+
+                        <strong id="imageDimensions">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>
+                            File Size
+                        </span>
+
+                        <strong id="imageFileSize">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>
+                            Category
+                        </span>
+
+                        <strong id="imageDetailCategory">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>
+                            Added
+                        </span>
+
+                        <strong id="imageAddedDate">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LIGHTBOX ACTIONS -->
+
+                <div class="lightbox-actions">
+
+                    <!-- FAVORITE -->
+
+                    <button
+                        id="lightboxFavorite"
+                        class="lightbox-action-btn"
+                        aria-label="Add to favorites"
+                        title="Add to favorites">
+
+                        ♡
+
+                    </button>
+
+
+                    <!-- ZOOM OUT -->
+
+                    <button
+                        id="zoomOutImage"
+                        class="lightbox-action-btn"
+                        aria-label="Zoom out"
+                        title="Zoom out">
+
+                        −
+
+                    </button>
+
+
+                    <!-- ZOOM IN -->
+
+                    <button
+                        id="zoomInImage"
+                        class="lightbox-action-btn"
+                        aria-label="Zoom in"
+                        title="Zoom in">
+
+                        +
+
+                    </button>
+
+
+                    <!-- SLIDESHOW -->
+
+                    <button
+                        id="slideshowImage"
+                        class="lightbox-action-btn"
+                        aria-label="Start slideshow"
+                        title="Start slideshow">
+
+                        ▶
+
+                    </button>
+
+
+                    <!-- DOWNLOAD -->
+
+                    <button
+                        id="downloadImage"
+                        class="lightbox-action-btn"
+                        aria-label="Download image"
+                        title="Download image">
+
+                        ↓
+
+                    </button>
+
+
+                    <!-- SHARE -->
+
+                    <button
+                        id="shareImage"
+                        class="lightbox-action-btn"
+                        aria-label="Share image"
+                        title="Share image">
+
+                        ↗
+
+                    </button>
+
+
+                    <!-- FULLSCREEN -->
+
+                    <button
+                        id="fullscreenImage"
+                        class="lightbox-action-btn"
+                        aria-label="Fullscreen image"
+                        title="Fullscreen">
+
+                        ⛶
+
+                    </button>
+
+                </div>
+
+
+                <!-- EDIT BUTTON -->
+
+                <button
+                    id="editImage"
+                    class="edit-lightbox-btn"
+                    type="button">
+
+                    ✎ Edit Image
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- NEXT -->
+
+        <button
+            class="lightbox-nav next"
+            id="nextBtn"
+            aria-label="Next image">
+
+            ›
+
+        </button>
+
+    </div>
+
+
+    <!-- ================= KEYBOARD HELP ================= -->
+
+    <div
+        class="keyboard-help"
+        id="keyboardHelp"
+        aria-hidden="true">
+
+        <div class="keyboard-help-content">
+
+            <button
+                id="closeKeyboardHelp"
+                class="keyboard-help-close"
+                aria-label="Close keyboard shortcuts">
+
+                ×
+
+            </button>
+
+
+            <p class="small-title">
+                VISTORA CONTROLS
+            </p>
+
+            <h3>
+                Keyboard Shortcuts
+            </h3>
+
+
+            <div class="shortcut-row">
+
+                <kbd>←</kbd>
+
+                <span>
+                    Previous image
+                </span>
+
+            </div>
+
+
+            <div class="shortcut-row">
+
+                <kbd>→</kbd>
+
+                <span>
+                    Next image
+                </span>
+
+            </div>
+
+
+            <div class="shortcut-row">
+
+                <kbd>Space</kbd>
+
+                <span>
+                    Play / Pause slideshow
+                </span>
+
+            </div>
+
+
+            <div class="shortcut-row">
+
+                <kbd>+</kbd>
+
+                <span>
+                    Zoom in
+                </span>
+
+            </div>
+
+
+            <div class="shortcut-row">
+
+                <kbd>−</kbd>
+
+                <span>
+                    Zoom out
+                </span>
+
+            </div>
+
+
+            <div class="shortcut-row">
+
+                <kbd>Esc</kbd>
+
+                <span>
+                    Close viewer
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite">
+
+        <span id="toastMessage">
+            Added to favorites
+        </span>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            ✦ Vistora
+        </div>
+
+        <p>
+            Capturing moments. Creating memories.
+        </p>
+
+        <p class="copyright">
+            © 2026 Vistora. Created for CodeAlpha Internship.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
